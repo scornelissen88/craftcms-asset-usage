@@ -17,36 +17,11 @@ class AssetUsage extends Component
      */
     public function getUsageByAsset(Asset $asset)
     {
-//        $a=Entry::find()
-//            ->relatedTo($asset)
-//            ->anyStatus();
-//        var_dump($a->all());
         return array_merge(
             $this->_getRelatedEntries($asset),
             $this->_getRelatedEntries($asset, self::ENTRY_STATUS_DRAFT),
             $this->_getRelatedEntries($asset, self::ENTRY_STATUS_TRASHED)
         );
-
-
-
-        /*            $asset = $context['element'] ?? null;
-
-            if ($asset && $asset instanceof Asset) {
-                $entries = Entry::find()->relatedTo($asset)->anyStatus()
-                    //->drafts(true)
-                    ->all();
-// <span class="icon" data-icon="draft"></span>
-                foreach ($entries as $entry) {
-                    return '<div class="meta read-only">
-<ul><li>
-<span class="status '.$entry->getStatus().'"></span>
-'.$entry->getUrl() . '</li></ul></div>';
-                }
-            }
-
-//            echo'<pre>';var_dump($context);exit;
-
-//            Entry::find()->relatedTo()*/
     }
 
     /**
