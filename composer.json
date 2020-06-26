@@ -1,0 +1,35 @@
+{
+    "name": "vrijdag/craftcms-asset-usage",
+    "description": "Show usage of assets on elements",
+    "type": "craft-plugin",
+    "version": "1.0.0",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "asset usage"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Stefan",
+            "homepage": "https://vrijdag.digital"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^3.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+          "vrijdag\\craftcmsassetusage\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "Asset Usage",
+        "handle": "asset-usage",
+        "developer": "Stefan",
+        "developerUrl": "https://vrijdag.digital",
+        "class": "vrijdag\\craftcmsassetusage\\AssetUsage"
+    }
+}
