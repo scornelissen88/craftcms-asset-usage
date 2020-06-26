@@ -1,18 +1,11 @@
 <?php
-/**
- * Asset Usage plugin for Craft CMS 3.x
- *
- * Show usage of assets on elements
- *
- * @link      https://vrijdag.digital
- * @copyright Copyright (c) 2020 Stefan
- */
 
 namespace vrijdag\craftcmsassetusage;
 
-
 use Craft;
 use craft\base\Plugin;
+use craft\elements\Asset;
+use craft\elements\Entry;
 use craft\services\Plugins;
 use craft\events\PluginEvent;
 
@@ -20,25 +13,15 @@ use yii\base\Event;
 
 /**
  * Class AssetUsage
- *
- * @author    Stefan
- * @package   AssetUsage
- * @since     1.0.0
- *
+ * @package vrijdag\craftcmsassetusage
+ * @property \vrijdag\craftcmsassetusage\services\AssetUsage $assetUsage
  */
 class AssetUsage extends Plugin
 {
-    // Static Properties
-    // =========================================================================
-
     /**
      * @var AssetUsage
      */
     public static $plugin;
-
-    // Public Properties
-    // =========================================================================
-
     /**
      * @var string
      */
@@ -54,37 +37,38 @@ class AssetUsage extends Plugin
      */
     public $hasCpSection = false;
 
-    // Public Methods
-    // =========================================================================
-
     /**
      * @inheritdoc
      */
     public function init()
     {
         parent::init();
+
         self::$plugin = $this;
 
-        Event::on(
-            Plugins::class,
-            Plugins::EVENT_AFTER_INSTALL_PLUGIN,
-            function (PluginEvent $event) {
-                if ($event->plugin === $this) {
-                }
-            }
-        );
+        $this->setComponents([
+            'assetUsage' => \vrijdag\craftcmsassetusage\services\AssetUsage::class,
+        ]);
 
-        Craft::info(
-            Craft::t(
-                'asset-usage',
-                '{name} plugin loaded',
-                ['name' => $this->name]
-            ),
-            __METHOD__
-        );
+        Craft::$app->view->hook('cp.assets.edit.details', function(array &$context) {
+            $asset = $context['element'] ?? null;
+            $entries = [];
+
+            if ($asset) {
+                $entries = AssetUsage::getInstance()->getAssetUsage()->getUsageByAsset($asset);
+            }
+
+            return Craft::$app->getView()->renderTemplate('asset-usage/hooks/asset-usage', [
+                'entries' => $entries,
+            ]);
+        });
     }
 
-    // Protected Methods
-    // =========================================================================
-
+    /**
+     * @return services\AssetUsage
+     */
+    public function getAssetUsage()
+    {
+        return $this->assetUsage;
+    }
 }

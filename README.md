@@ -1,8 +1,6 @@
 # Asset Usage plugin for Craft CMS 3.x
 
-Show usage of assets on elements
-
-![Screenshot](resources/img/plugin-logo.png)
+Show usage of assets in entries
 
 ## Requirements
 
@@ -24,20 +22,4 @@ To install the plugin, follow these instructions.
 
 ## Asset Usage Overview
 
--Insert text here-
-
-## Configuring Asset Usage
-
--Insert text here-
-
-## Using Asset Usage
-
--Insert text here-
-
-## Asset Usage Roadmap
-
-Some things to do, and ideas for potential features:
-
-* Release it
-
-Brought to you by [Stefan](https://vrijdag.digital)
+Once the plugin is installed asset usages in entries will be shown when editing an asset in the control panel.

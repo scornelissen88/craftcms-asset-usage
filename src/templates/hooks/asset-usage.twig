@@ -1,0 +1,25 @@
+<div class="meta read-only">
+    <p>{{ 'Usage of this asset in entries'|t('asset-usage') }}:</p>
+
+    {% if entries|length %}
+        {% for entry in entries %}
+            <div class="data">
+                <div class="heading" style="flex-basis: 20px;">
+                    {% if entry.getIsDraft() or (entry.dateDeleted and entry.dateDeleted < date()) %}
+                        <span class="icon" data-icon="{{ entry.getIsDraft() ? 'draft' : 'trashed' }}"></span>
+                    {% else %}
+                        <span class="status {{ entry.getStatus() }}"></span>
+                    {% endif %}
+                </div>
+
+                <div class="value" style="width: calc(100% - 20px);">
+                    <a href="{{ entry.getCpEditUrl() }}">{{ entry.title ?? '#' ~ entry.id }}</a>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>
+            <em>{{ 'No usage found in entries with this asset'|t('asset-usage') }}</em>
+        </p>
+    {% endif %}
+</div>
