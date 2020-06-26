@@ -13,7 +13,11 @@
                 </div>
 
                 <div class="value" style="width: calc(100% - 20px);">
-                    <a href="{{ entry.getCpEditUrl() }}">{{ entry.title ?? '#' ~ entry.id }}</a>
+                    {% if entry.dateDeleted and entry.dateDeleted < date() %}
+                        {{ entry.title }}
+                    {% else %}
+                        <a href="{{ entry.getCpEditUrl() }}{{ entry.draftId ? '?draftId=' ~ entry.draftId : '' }}">{{ entry.title }}</a>
+                    {% endif %}
                 </div>
             </div>
         {% endfor %}
