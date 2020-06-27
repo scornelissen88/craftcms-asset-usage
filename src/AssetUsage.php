@@ -4,12 +4,6 @@ namespace vrijdag\craftcmsassetusage;
 
 use Craft;
 use craft\base\Plugin;
-use craft\elements\Asset;
-use craft\elements\Entry;
-use craft\services\Plugins;
-use craft\events\PluginEvent;
-
-use yii\base\Event;
 
 /**
  * Class AssetUsage
