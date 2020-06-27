@@ -1,29 +1,25 @@
-<div class="meta read-only">
+<div id="vrijdag-asset-usage" class="elementselect meta read-only">
     <p>{{ 'Usage of this asset in entries'|t('asset-usage') }}:</p>
 
     {% if entries|length %}
-        {% for entry in entries %}
-            <div class="data">
-                <div class="heading" style="flex-basis: 20px;">
-                    {% if entry.getIsDraft() or (entry.dateDeleted and entry.dateDeleted < date()) %}
-                        <span class="icon" data-icon="{{ entry.getIsDraft() ? 'draft' : 'trashed' }}"></span>
-                    {% else %}
-                        <span class="status {{ entry.getStatus() }}"></span>
-                    {% endif %}
-                </div>
-
-                <div class="value" style="width: calc(100% - 20px);">
-                    {% if entry.dateDeleted and entry.dateDeleted < date() %}
-                        {{ entry.title }}
-                    {% else %}
-                        <a href="{{ entry.getCpEditUrl() }}{{ entry.draftId ? '?draftId=' ~ entry.draftId : '' }}">{{ entry.title }}</a>
-                    {% endif %}
-                </div>
-            </div>
-        {% endfor %}
+        <div class="elements">
+            {% for entry in entries %}
+                {% include "_elements/element" with {
+                    element: entry,
+                    size: 'small',
+                } %}
+            {% endfor %}
+        </div>
     {% else %}
         <p>
             <em>{{ 'No usage found in entries with this asset'|t('asset-usage') }}</em>
         </p>
     {% endif %}
 </div>
+
+{% js %}
+    new Craft.BaseElementSelectInput({
+        "id": "vrijdag-asset-usage",
+        "elementType": "craft\\elements\\Entry",
+    });
+{% endjs %}
